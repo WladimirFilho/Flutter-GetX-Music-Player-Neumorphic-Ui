@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player_ui/components/custom_app_bar.dart';
@@ -6,13 +5,13 @@ import 'package:music_player_ui/components/neu_box.dart';
 import 'package:music_player_ui/contants_variables/colors/colors.dart';
 import 'package:music_player_ui/contants_variables/text_styles/text_styles.dart';
 import 'package:music_player_ui/music/components/drawer.dart';
+import 'package:music_player_ui/music/play/play_control_controller.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class PlayControlPage extends StatelessWidget {
+class PlayControlPage extends GetView<PlayControlController> {
   PlayControlPage({Key? key}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +20,20 @@ class PlayControlPage extends StatelessWidget {
 
     return Scaffold(
       key: _key,
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: CustomAppBar(
         title: 'PLAYLIST',
         actionWidgetAppbar: NeuBox(
           onTap: () {
             _key.currentState!.openDrawer();
           },
-          child: Icon(Icons.menu),
+          child: const Icon(Icons.menu),
         ),
         trailingWidgetAppbar: NeuBox(
           onTap: () {
             Get.toNamed('/musicList');
           },
-          child: Icon(Icons.playlist_play),
+          child: const Icon(Icons.playlist_play),
         ),
       ),
       backgroundColor: colorTheme.backgroundColor,
@@ -97,13 +96,38 @@ class PlayControlPage extends StatelessWidget {
               ),
 
               // start time, shuffle button, repeat button, end time
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('0,00'),
+                  Obx(() {
+                    final ss = (controller.soundTimeStamp.value.inSeconds % 60)
+                        .toString()
+                        .padLeft(2, "0");
+
+                    final mm = (controller.soundTimeStamp.value.inMinutes % 60)
+                        .toString()
+                        .padLeft(2, "0");
+
+                    return Text(
+                      mm + ':' + ss,
+                    );
+                  }),
                   Icon(Icons.shuffle),
                   Icon(Icons.repeat),
-                  Text('4,40'),
+                  Obx(() {
+                    final ss =
+                        (controller.finalSoundTimeStamp.value.inSeconds % 60)
+                            .toString()
+                            .padLeft(2, "0");
+
+                    final mm =
+                        (controller.finalSoundTimeStamp.value.inMinutes % 60)
+                            .toString()
+                            .padLeft(2, "0");
+                    return Text(
+                      mm + ':' + ss,
+                    );
+                  }),
                 ],
               ),
               const SizedBox(
@@ -113,13 +137,15 @@ class PlayControlPage extends StatelessWidget {
               // progress bar
               NeuBox(
                 onTap: () {},
-                child: LinearPercentIndicator(
-                  backgroundColor: Colors.transparent,
-                  barRadius: const Radius.circular(8),
-                  lineHeight: 10,
-                  percent: 0.5,
-                  progressColor: Colors.green,
-                ),
+                child: Obx(() {
+                  return LinearPercentIndicator(
+                    backgroundColor: Colors.transparent,
+                    barRadius: const Radius.circular(8),
+                    lineHeight: 10,
+                    percent: controller.percentage.value,
+                    progressColor: Colors.green,
+                  );
+                }),
               ),
 
               const SizedBox(height: 25),
@@ -133,7 +159,7 @@ class PlayControlPage extends StatelessWidget {
                       child: NeuBox(
                         onTap: () {},
                         padding: 10,
-                        child: Icon(
+                        child: const Icon(
                           Icons.skip_previous,
                           size: 40,
                         ),
@@ -147,15 +173,17 @@ class PlayControlPage extends StatelessWidget {
                       child: SizedBox(
                         height: 100,
                         child: NeuBox(
-                          onTap: () async {
-                            await player.play(
-                              AssetSource('music/mixkit-woodfire-by-the-lake-128.mp3'),
-                            );
+                          onTap: () {
+                            controller.playMusic();
                           },
-                          child: const Icon(
-                            Icons.play_arrow,
-                            size: 40,
-                          ),
+                          child: Obx(() {
+                            return Icon(
+                              controller.isPlaying.value
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              size: 40,
+                            );
+                          }),
                         ),
                       ),
                     ),
