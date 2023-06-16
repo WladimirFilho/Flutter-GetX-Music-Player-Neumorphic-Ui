@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
@@ -11,14 +10,15 @@ class PlayControlController extends GetxController {
   final finalSoundTimeStamp = const Duration().obs;
   final percentage = 0.0.obs;
 
-  // Atribute variables
+  // Attribute variables
   final AudioPlayer audioPlayers;
-  late StreamSubscription<Duration> _durartionSubscription;
+  // ignore: unused_field
+  late StreamSubscription<Duration> _durationSubscription;
 
   PlayControlController({
     required this.audioPlayers,
   }) : super() {
-    _durartionSubscription =
+    _durationSubscription =
         audioPlayers.onPositionChanged.listen((event) async {
       soundTimeStamp.value = event;
       final duration = await audioPlayers.getDuration() ?? const Duration();

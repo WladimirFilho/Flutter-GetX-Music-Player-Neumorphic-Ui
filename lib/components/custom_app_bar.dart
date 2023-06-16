@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player_ui/contants_variables/text_styles/text_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({
+  const CustomAppBar({
     Key? key,
     required this.title,
     this.actionWidgetAppbar,
@@ -41,6 +41,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size(double.infinity, 80);
+  Size get preferredSize => const Size(double.infinity, 80);
 }

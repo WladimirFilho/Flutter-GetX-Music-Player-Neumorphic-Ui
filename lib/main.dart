@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_player_ui/application/bindings/application_bindings.dart';
 import 'package:music_player_ui/contants_variables/colors/colors.dart';
 import 'package:music_player_ui/contants_variables/text_styles/text_styles.dart';
 import 'package:music_player_ui/music/music_module.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: ApplicationBindings(),
       getPages: [
         ...MusicModule().routers,
       ],

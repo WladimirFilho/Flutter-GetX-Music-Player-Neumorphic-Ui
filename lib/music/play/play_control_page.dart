@@ -109,11 +109,11 @@ class PlayControlPage extends GetView<PlayControlController> {
                         .padLeft(2, "0");
 
                     return Text(
-                      mm + ':' + ss,
+                      '$mm:$ss',
                     );
                   }),
-                  Icon(Icons.shuffle),
-                  Icon(Icons.repeat),
+                  const Icon(Icons.shuffle),
+                  const Icon(Icons.repeat),
                   Obx(() {
                     final ss =
                         (controller.finalSoundTimeStamp.value.inSeconds % 60)
@@ -125,7 +125,7 @@ class PlayControlPage extends GetView<PlayControlController> {
                             .toString()
                             .padLeft(2, "0");
                     return Text(
-                      mm + ':' + ss,
+                      '$mm:$ss',
                     );
                   }),
                 ],

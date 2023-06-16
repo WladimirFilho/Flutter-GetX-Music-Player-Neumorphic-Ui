@@ -10,6 +10,7 @@ class ListComponent extends StatelessWidget {
     var textStyleTheme = Theme.of(context).extension<TextStyleExtention>()!;
 
     return ListView.builder(
+      // ignore: avoid_types_as_parameter_names
       itemBuilder: (context, int) => Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24.0,

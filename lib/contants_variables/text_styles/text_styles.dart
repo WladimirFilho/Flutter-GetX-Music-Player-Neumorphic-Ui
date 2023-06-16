@@ -29,6 +29,7 @@ class TextStyleExtention extends ThemeExtension<TextStyleExtention> {
     TextStyleExtention other,
     double t,
   ) {
+    // ignore: unnecessary_type_check
     if (other is! ThemeExtension) {
       return this;
     }

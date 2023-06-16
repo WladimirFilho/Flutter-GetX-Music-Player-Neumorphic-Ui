@@ -37,6 +37,7 @@ dependencies:
   percent_indicator:
   get: 4.6.5
   audioplayers: ^4.1.0
+  http: ^1.0.0
 
 dev_dependencies:
   flutter_test:

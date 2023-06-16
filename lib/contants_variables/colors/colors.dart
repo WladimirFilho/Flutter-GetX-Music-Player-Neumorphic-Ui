@@ -25,7 +25,8 @@ class ColorsExtension extends ThemeExtension<ColorsExtension> {
   }) {
     return ColorsExtension(
       backgroundColor: backgroundColor ?? this.backgroundColor,
-      musicListBackgroundColor: musicListBackgroundColor ?? this.musicListBackgroundColor,
+      musicListBackgroundColor:
+          musicListBackgroundColor ?? this.musicListBackgroundColor,
       menuBackgroundColor: menuBackgroundColor ?? this.menuBackgroundColor,
       selectedColor: selectedColor ?? this.selectedColor,
       darkColor: darkColor ?? this.darkColor,
@@ -34,14 +35,16 @@ class ColorsExtension extends ThemeExtension<ColorsExtension> {
 
   @override
   ThemeExtension<ColorsExtension> lerp(ColorsExtension other, double t) {
+    // ignore: unnecessary_type_check
     if (other is! ColorsExtension) {
       return this;
     }
     return ColorsExtension(
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t),
-      musicListBackgroundColor:
-          Color.lerp(musicListBackgroundColor, other.musicListBackgroundColor, t),
-      menuBackgroundColor: Color.lerp(menuBackgroundColor, other.menuBackgroundColor, t),
+      musicListBackgroundColor: Color.lerp(
+          musicListBackgroundColor, other.musicListBackgroundColor, t),
+      menuBackgroundColor:
+          Color.lerp(menuBackgroundColor, other.menuBackgroundColor, t),
       selectedColor: Color.lerp(selectedColor, other.selectedColor, t),
       darkColor: Color.lerp(darkColor, other.darkColor, t),
     );

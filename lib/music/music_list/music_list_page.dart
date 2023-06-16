@@ -3,15 +3,17 @@ import 'package:get/get.dart';
 import 'package:music_player_ui/components/custom_app_bar.dart';
 import 'package:music_player_ui/components/list_component.dart';
 import 'package:music_player_ui/contants_variables/colors/colors.dart';
+import 'package:music_player_ui/music/music_list/music_list_controller.dart';
 
 import '../../components/neu_box.dart';
 
-class MusicListPage extends StatelessWidget {
+class MusicListPage extends GetView<MusicListController> {
   const MusicListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var colorTheme = Theme.of(context).extension<ColorsExtension>()!;
+
     return Scaffold(
       backgroundColor: colorTheme.backgroundColor,
       appBar: CustomAppBar(
@@ -19,16 +21,22 @@ class MusicListPage extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(Icons.arrow_back),
+          child: const Icon(Icons.arrow_back),
         ),
         title: 'YOUR LIST',
       ),
-      body: const Column(
+      body: Column(
         children: [
           SizedBox(
             height: 20,
           ),
           Expanded(child: ListComponent()),
+          TextButton(
+            onPressed: () {
+              controller.fetchMusicList();
+            },
+            child: Text('clica no butao'),
+          )
         ],
       ),
     );
