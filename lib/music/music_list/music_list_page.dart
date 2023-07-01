@@ -27,16 +27,18 @@ class MusicListPage extends GetView<MusicListController> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Expanded(child: ListComponent()),
-          TextButton(
-            onPressed: () {
-              controller.fetchMusicList();
-            },
-            child: Text('clica no butao'),
-          )
+          Expanded(
+            child: Obx(
+              () {
+                return controller.isLoading == true
+                    ? const CircularProgressIndicator()
+                    : const ListComponent();
+              },
+            ),
+          ),
         ],
       ),
     );
